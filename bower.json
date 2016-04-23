@@ -1,0 +1,22 @@
+{
+  "name": "markdown-it-linkify-images",
+  "description": "A markdown-it plugin to add links to images",
+  "main": "dist/markdown-it-linkify-images.js",
+  "authors": [
+    "Blade Barringer <blade@crookedneighbor.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "markdown-it",
+    "markdown-it-plugin",
+    "markdown",
+    "commonmark"
+  ],
+  "homepage": "https://github.com/crookedneighbor/markdown-it-linkify-images",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "tasks",
+    "test"
+  ]
+}

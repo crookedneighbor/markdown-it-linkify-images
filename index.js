@@ -1,3 +1,5 @@
+'use strict'
+
 function markdownitLinkifyImages (md, config) {
   md.renderer.rules.image = function (tokens, idx, options, env, self) {
     config = config || {}

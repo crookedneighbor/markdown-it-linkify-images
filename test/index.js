@@ -52,6 +52,16 @@ describe('markdown-it-linkify-images', function () {
     expect(result).to.eql('<p><a href="https://image.com/image.png" class="custom-link-class" target="_self"><img src="https://image.com/image.png" alt="caption"></a></p>\n')
   })
 
+  it('can be configured to set multiple link classes', function () {
+    this.md.use(linkifyImages, {
+      linkClass: 'first-class second-class'
+    })
+
+    var result = this.md.render('![caption](https://image.com/image.png)')
+
+    expect(result).to.eql('<p><a href="https://image.com/image.png" class="first-class second-class" target="_self"><img src="https://image.com/image.png" alt="caption"></a></p>\n')
+  })
+
   it('can be configured to set an img class', function () {
     this.md.use(linkifyImages, {
       imgClass: 'custom-image-class'
@@ -60,5 +70,15 @@ describe('markdown-it-linkify-images', function () {
     var result = this.md.render('![caption](https://image.com/image.png)')
 
     expect(result).to.eql('<p><a href="https://image.com/image.png" target="_self"><img src="https://image.com/image.png" alt="caption" class="custom-image-class"></a></p>\n')
+  })
+
+  it('can be configured to set multiple img classes', function () {
+    this.md.use(linkifyImages, {
+      imgClass: 'first-class second-class'
+    })
+
+    var result = this.md.render('![caption](https://image.com/image.png)')
+
+    expect(result).to.eql('<p><a href="https://image.com/image.png" target="_self"><img src="https://image.com/image.png" alt="caption" class="first-class second-class"></a></p>\n')
   })
 })

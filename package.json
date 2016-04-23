@@ -1,0 +1,51 @@
+{
+  "name": "markdown-it-linkify-images",
+  "version": "0.0.1",
+  "description": "A markdown-it plugin to add links to images",
+  "main": "index.js",
+  "scripts": {
+    "lint": "standard | snazzy",
+    "test": "npm run lint && mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crookedneighbor/markdown-it-linkify-images.git"
+  },
+  "keywords": [
+    "markdown-it",
+    "markdown-it-plugin",
+    "markdown",
+    "commonmark"
+  ],
+  "author": "Blade Barringer <blade@crookedneighbor.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/crookedneighbor/markdown-it-linkify-images/issues"
+  },
+  "homepage": "https://github.com/crookedneighbor/markdown-it-linkify-images#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "markdown-it": "^6.0.1",
+    "mocha": "^2.4.5",
+    "sinon": "^1.17.3",
+    "sinon-chai": "^2.8.0",
+    "snazzy": "^3.0.1",
+    "standard": "^6.0.8"
+  },
+  "standard": {
+    "globals": [
+      "after",
+      "afterEach",
+      "before",
+      "beforeEach",
+      "context",
+      "describe",
+      "expect",
+      "it",
+      "sandbox",
+      "xdescribe",
+      "xcontext",
+      "xit"
+    ]
+  }
+}

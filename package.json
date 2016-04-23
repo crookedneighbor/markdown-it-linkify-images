@@ -4,6 +4,8 @@
   "description": "A markdown-it plugin to add links to images",
   "main": "index.js",
   "scripts": {
+    "build": "node tasks/build.js && npm run minify",
+    "minify": "uglifyjs dist/markdown-it-linkify-images.js > dist/markdown-it-linkify-images.min.js",
     "lint": "standard | snazzy",
     "test": "npm run lint && mocha"
   },
@@ -24,13 +26,15 @@
   },
   "homepage": "https://github.com/crookedneighbor/markdown-it-linkify-images#readme",
   "devDependencies": {
+    "browserify": "^13.0.0",
     "chai": "^3.5.0",
+    "chalk": "^1.1.3",
     "markdown-it": "^6.0.1",
     "mocha": "^2.4.5",
-    "sinon": "^1.17.3",
-    "sinon-chai": "^2.8.0",
+    "rimraf": "^2.5.2",
     "snazzy": "^3.0.1",
-    "standard": "^6.0.8"
+    "standard": "^6.0.8",
+    "uglify-js": "^2.6.2"
   },
   "standard": {
     "globals": [

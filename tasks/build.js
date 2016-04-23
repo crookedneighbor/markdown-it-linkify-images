@@ -2,11 +2,10 @@ var pkg = require('../package.json')
 var fs = require('fs')
 var chalk = require('chalk')
 var rm = require('rimraf').sync
-var browserify = require('browserify');
+var browserify = require('browserify')
 
 var PACKAGE_NAME = pkg.name
 var PACKAGE_VERSION = pkg.version
-var PACKAGE_URL = 'https://github.com/crookedneighbor/markdown-it-linkify-images'
 var DIST_PATH = './dist/markdown-it-linkify-images.js'
 
 console.log(chalk.yellow('Beginning build process for ' + PACKAGE_NAME + ' version v' + PACKAGE_VERSION))
@@ -22,7 +21,7 @@ fs.mkdirSync('./dist')
 console.log(chalk.green('The dist directory was created'))
 
 console.log(chalk.gray('Bunding files with browserify'))
-var distStream = fs.createWriteStream(DIST_PATH);
+var distStream = fs.createWriteStream(DIST_PATH)
 
 distStream.on('error', function (err) {
   console.error(chalk.red('There was a problem in the dist stream'))
@@ -31,8 +30,8 @@ distStream.on('error', function (err) {
 
 var b = browserify({
   standalone: 'markdownit-linkify-images'
-});
+})
 
-b.add('./index.js');
-b.bundle().pipe(distStream);
+b.add('./index.js')
+b.bundle().pipe(distStream)
 console.log(chalk.green('Bundling is complete'))

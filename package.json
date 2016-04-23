@@ -50,6 +50,9 @@
       "xdescribe",
       "xcontext",
       "xit"
+    ],
+    "ignore": [
+      "dist/"
     ]
   }
 }

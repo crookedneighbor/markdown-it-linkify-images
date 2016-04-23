@@ -1,0 +1,274 @@
+<html>
+  <head>
+    <title>Markdown-It Linkify Images Plugin</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/6.0.1/markdown-it.min.js"></script>
+    <script src="../dist/markdown-it-linkify-images.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <style>
+      body {
+        margin-top: 50px;
+      }
+
+      img {
+        width: 100px;
+        max-width: 100%;
+      }
+
+      .ui.segment.img {
+        text-align: center;
+      }
+
+      .ui.segment {
+        max-width: 45%;
+      }
+
+			.special-link-class {
+				animation-duration: 1.5s;
+				animation-name: blink;
+				animation-iteration-count: infinite;
+				animation-direction: alternate;
+			}
+
+			@keyframes blink {
+				0% {
+					opacity: 0;
+				}
+				60% {
+					opacity: 1;
+				}
+			}
+
+			.special-img-class {
+				animation-duration: 1s;
+				animation-name: color;
+				animation-iteration-count: infinite;
+				animation-direction: alternate;
+			}
+
+			@keyframes color {
+				0% {
+          margin-top: 0px;
+				}
+				100% {
+          margin-top: 150%;
+				}
+			}
+    </style>
+  </head>
+  <body>
+    <div class="ui container">
+      <h1>Markdown-It Linkify Images</h1>
+
+      <h3>Default Behavior (Without Plugin)</h3>
+
+      <div id="no-plugin-example" class="ui horizontal segments">
+        <pre class="ui segment"><code class="js">md.render('![the image caption](img/smile.png)')
+</code></pre>
+
+        <pre class="ui segment code-html"><code class="html">&lt;p&gt;
+  &lt;img src="img/smile.png" alt="the image caption"&gt;
+&lt;/p&gt;</code></pre>
+
+        <div class="ui segment img"></div>
+      </div>
+
+      <h3>Plugin Without Additional Options</h3>
+
+      <div id="default-plugin-example" class="ui horizontal segments">
+        <pre class="ui segment"><code class="js">md.use(markdownitLinkifyPlugin)
+md.render('![the image caption](img/smile.png)')
+</code></pre>
+
+        <pre class="ui segment code-html"><code class="html">&lt;p&gt;
+  &lt;a href="img/smile.png" target="_self"&gt;
+    &lt;img src="img/smile.png" alt="the image caption"&gt;
+  &lt;/a&gt;
+&lt;/p&gt;</code></pre>
+
+        <div class="ui segment img"></div>
+      </div>
+
+      <h3>Plugin linkTarget option</h3>
+
+      <div id="target-plugin-example" class="ui horizontal segments">
+        <pre class="ui segment"><code class="js">md.use(markdownitLinkifyPlugin, {
+  target: '_blank'
+})
+md.render('![the image caption](img/smile.png)')
+</code></pre>
+
+        <pre class="ui segment code-html"><code class="html">&lt;p&gt;
+  &lt;a href="img/smile.png" target="_blank"&gt;
+    &lt;img src="img/smile.png" alt="the image caption"&gt;
+  &lt;/a&gt;
+&lt;/p&gt;</code></pre>
+
+        <div class="ui segment img"></div>
+      </div>
+
+      <h3>Plugin linkClass option</h3>
+
+      <div id="link-class-plugin-example" class="ui horizontal segments">
+        <pre class="ui segment"><code class="js">md.use(markdownitLinkifyPlugin, {
+  linkClass: 'special-link-class'
+})
+md.render('![the image caption](img/smile.png)')
+</code>
+<code class="css">.special-link-class {
+  animation-duration: 1.5s;
+  animation-name: blink;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  60% {
+    opacity: 1;
+  }
+}</code></pre>
+
+        <pre class="ui segment code-html"><code class="html">&lt;p&gt;
+  &lt;a href="img/smile.png" target="_self" class="special-link-class"&gt;
+    &lt;img src="img/smile.png" alt="the image caption"&gt;
+  &lt;/a&gt;
+&lt;/p&gt;</code></pre>
+
+        <div class="ui segment img"></div>
+      </div>
+
+      <h3>Plugin imgClass option</h3>
+
+      <div id="img-class-plugin-example" class="ui horizontal segments">
+        <pre class="ui segment"><code class="js">md.use(markdownitLinkifyPlugin, {
+  imgClass: 'special-img-class'
+})
+md.render('![the image caption](img/smile.png)')</code>
+<code class="css">.special-img-class {
+  animation-duration: 1s;
+  animation-name: color;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes color {
+  0% {
+    margin-top: 0px;
+  }
+  100% {
+    margin-top: 150%;
+  }
+}</code></pre>
+
+        <pre class="ui segment code-html"><code class="html">&lt;p&gt;
+  &lt;a href="img/smile.png" target="_self"&gt;
+    &lt;img src="img/smile.png" alt="the image caption" class="special-img-class"&gt;
+  &lt;/a&gt;
+&lt;/p&gt;</code></pre>
+
+        <div class="ui segment img"></div>
+      </div>
+
+      <h3>All Together Now</h3>
+
+      <div id="all-together-plugin-example" class="ui horizontal segments">
+        <pre class="ui segment"><code class="js">md.use(markdownitLinkifyPlugin, {
+  target: '_blank',
+  linkClass: 'special-link-class',
+  imgClass: 'special-img-class'
+})
+md.render('![the image caption](img/smile.png)')</code>
+<code class="css">.special-link-class {
+  animation-duration: 1.5s;
+  animation-name: blink;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  60% {
+    opacity: 1;
+  }
+}
+
+.special-img-class {
+  animation-duration: 1s;
+  animation-name: color;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes color {
+  0% {
+    margin-top: 0px;
+  }
+  100% {
+    margin-top: 150%;
+  }
+}</code></pre>
+
+        <pre class="ui segment code-html"><code class="html">&lt;p&gt;
+  &lt;a href="img/smile.png" target="_self"&gt;
+    &lt;img src="img/smile.png" alt="the image caption" class="special-img-class"&gt;
+  &lt;/a&gt;
+&lt;/p&gt;</code></pre>
+
+        <div class="ui segment img"></div>
+      </div>
+    </div>
+
+    <script>
+      var image= '![the image caption](img/smile.png)'
+      function renderMarkdown (id, config) {
+        var md = window.markdownit()
+        var img = document.querySelector('#' + id + ' .img')
+
+        if (config) {
+          md.use(window.markdownitLinkifyImages, config)
+        }
+
+        var html = md.render(image)
+        img.innerHTML = html
+      }
+
+      [{
+        id: 'no-plugin-example'
+      }, {
+        id: 'default-plugin-example',
+        config: {}
+      }, {
+        id: 'target-plugin-example',
+        config: {
+          target: '_blank'
+        }
+      }, {
+        id: 'link-class-plugin-example',
+        config: {
+          linkClass: 'special-link-class'
+        }
+      }, {
+        id: 'img-class-plugin-example',
+        config: {
+          imgClass: 'special-img-class'
+        }
+      }, {
+        id: 'all-together-plugin-example',
+        config: {
+          target: '_blank',
+          linkClass: 'special-link-class',
+          imgClass: 'special-img-class'
+        }
+      }].forEach(function (set) {
+        renderMarkdown(set.id, set.config)
+      })
+    </script>
+  </body>
+</html>

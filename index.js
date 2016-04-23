@@ -1,4 +1,4 @@
-function linkifyImagesPlugin (md, config) {
+function markdownitLinkifyImages (md, config) {
   md.renderer.rules.image = function (tokens, idx, options, env, self) {
     config = config || {}
 
@@ -30,4 +30,4 @@ function generateClass (className) {
   return ' class="' + className + '"'
 }
 
-module.exports = linkifyImagesPlugin
+module.exports = markdownitLinkifyImages

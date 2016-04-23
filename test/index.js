@@ -13,7 +13,7 @@ describe('markdown-it-linkify-images', function () {
 
     var result = this.md.render('![caption](https://image.com/image.png)')
 
-    expect(result).to.eql('<p><a href="https://image.com/image.png"><img src="https://image.com/image.png" alt="caption"></a></p>\n')
+    expect(result).to.eql('<p><a href="https://image.com/image.png" target="_self"><img src="https://image.com/image.png" alt="caption"></a></p>\n')
   })
 
   it('contains the original markdown rendering', function () {
@@ -30,5 +30,15 @@ describe('markdown-it-linkify-images', function () {
     var result = this.md.render(imageMd)
 
     expect(result).to.contain(image)
+  })
+
+  it('can be configured to set link target', function () {
+    this.md.use(linkifyImages, {
+      target: '_blank'
+    })
+
+    var result = this.md.render('![caption](https://image.com/image.png)')
+
+    expect(result).to.eql('<p><a href="https://image.com/image.png" target="_blank"><img src="https://image.com/image.png" alt="caption"></a></p>\n')
   })
 })

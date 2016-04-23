@@ -8,10 +8,12 @@ function linkifyImagesPlugin (md, config) {
     var caption = token.content
 
     var target = generateTargetAttribute(config.target)
+    var linkClass = generateClass(config.linkClass)
+    var imgClass = generateClass(config.imgClass)
 
     return '' +
-      '<a href="' + url + '"' + target + '>' +
-        '<img src="' + url + '" alt="' + caption + '">' +
+      '<a href="' + url + '"' + linkClass + target + '>' +
+        '<img src="' + url + '" alt="' + caption + '"' + imgClass + '>' +
       '</a>'
   }
 }
@@ -20,6 +22,12 @@ function generateTargetAttribute (target) {
   target = target || '_self'
 
   return ' target="' + target + '"'
+}
+
+function generateClass (className) {
+  if (!className) return ''
+
+  return ' class="' + className + '"'
 }
 
 module.exports = linkifyImagesPlugin

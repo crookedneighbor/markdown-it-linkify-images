@@ -29,7 +29,9 @@ distStream.on('error', function (err) {
   console.error(err)
 })
 
-var b = browserify();
+var b = browserify({
+  standalone: 'markdownit-linkify-images'
+});
 
 b.add('./index.js');
 b.bundle().pipe(distStream);

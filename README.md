@@ -41,6 +41,9 @@ html // <p><a href="img/smile.png" target="_blank" class="custom-link-class"><im
 
 _Differences in browser._ If you load script directly into the page, without a package system, the module will add itself globally as `window.markdownitLinkifyImages`.
 
+## Testing
+
+This plugin is tested against markdown-it @ 6,7,8 and latest
 
 ## License
 

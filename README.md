@@ -1,4 +1,6 @@
 # markdown-it-linkify-images
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/crookedneighbor/markdown-it-linkify-images.svg)](https://greenkeeper.io/)
 A markdown-it plugin to add links to images
 
 > Linkifying Images plugin for [markdown-it](https://github.com/markdown-it/markdown-it) markdown parser.

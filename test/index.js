@@ -18,10 +18,34 @@ describe('markdown-it-linkify-images', function () {
     expect(result).to.eql('<p><a href="https://image.com/image.png" target="_self"><img src="https://image.com/image.png" alt="caption"></a></p>\n')
   })
 
+  it('can add image titles in the linked image', function () {
+    this.md.use(linkifyImages)
+
+    var result = this.md.render('![caption](https://image.com/image.png "mouseover")')
+
+    expect(result).to.eql('<p><a href="https://image.com/image.png" target="_self"><img src="https://image.com/image.png" alt="caption" title="mouseover"></a></p>\n')
+  })
+
   it('contains the original markdown rendering', function () {
     // Sanity check to make sure the way the image rule works does not change
     // If this fails, you may need to inspect the markup of the rule
     var imageMd = '![caption](https://image.com/image.png)'
+
+    var originalResultRaw = this.md.render(imageMd)
+    // remove surrounding paragraph tag
+    var image = originalResultRaw.substr(3, originalResultRaw.length - 8)
+
+    this.md.use(linkifyImages)
+
+    var result = this.md.render(imageMd)
+
+    expect(result).to.contain(image)
+  })
+
+  it('contains the original markdown rendering with titles', function () {
+    // Sanity check to make sure the way the image rule works does not change
+    // If this fails, you may need to inspect the markup of the rule
+    var imageMd = '![caption](https://image.com/image.png "mouseover")'
 
     var originalResultRaw = this.md.render(imageMd)
     // remove surrounding paragraph tag

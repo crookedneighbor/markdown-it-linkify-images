@@ -26,7 +26,7 @@
   },
   "homepage": "https://github.com/crookedneighbor/markdown-it-linkify-images#readme",
   "devDependencies": {
-    "browserify": "^14.1.0",
+    "browserify": "^15.0.0",
     "chai": "^4.1.1",
     "chalk": "^2.1.0",
     "mocha": "^5.0.0",

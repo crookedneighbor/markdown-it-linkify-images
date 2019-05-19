@@ -8,7 +8,7 @@ function markdownitLinkifyImages (md, config) {
     var srcIndex = token.attrIndex('src')
     var url = token.attrs[srcIndex][1]
     var title = ''
-    var caption = token.content
+    var caption = md.utils.escapeHtml(token.content)
 
     var target = generateTargetAttribute(config.target)
     var linkClass = generateClass(config.linkClass)

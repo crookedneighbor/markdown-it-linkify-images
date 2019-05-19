@@ -26,6 +26,14 @@ describe('markdown-it-linkify-images', function () {
     expect(result).to.eql('<p><a href="https://image.com/image.png" target="_self"><img src="https://image.com/image.png" alt="caption" title="mouseover"></a></p>\n')
   })
 
+  it('sanitizes src, alt, title attributes', function () {
+    this.md.use(linkifyImages)
+
+    var result = this.md.render('![Dangerous characters: "&<>](https://"&<>/ "\\"&<>")')
+
+    expect(result).to.eql('<p><a href="https://%22&%3C%3E/" target="_self"><img src="https://%22&%3C%3E/" alt="Dangerous characters: &quot;&amp;&lt;&gt;" title="&quot;&amp;&lt;&gt;"></a></p>\n')
+  })
+
   it('contains the original markdown rendering', function () {
     // Sanity check to make sure the way the image rule works does not change
     // If this fails, you may need to inspect the markup of the rule

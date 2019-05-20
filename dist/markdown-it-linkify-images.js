@@ -16,7 +16,7 @@ function markdownitLinkifyImages (md, config) {
     var imgClass = generateClass(config.imgClass)
 
     if (token.attrIndex('title') !== -1) {
-      title = ' title="' + token.attrs[token.attrIndex('title')][1] + '"'
+      title = ' title="' + md.utils.escapeHtml(token.attrs[token.attrIndex('title')][1]) + '"'
     }
 
     return '' +

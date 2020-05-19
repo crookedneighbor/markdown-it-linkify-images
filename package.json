@@ -55,6 +55,6 @@
     ]
   },
   "dependencies": {
-    "markdown-it": "^10.0.0"
+    "markdown-it": "^11.0.0"
   }
 }

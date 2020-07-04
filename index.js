@@ -9,6 +9,8 @@ function markdownitLinkifyImages (md, config) {
     var url = token.attrs[srcIndex][1]
     var title = ''
     var caption = md.utils.escapeHtml(token.content)
+    var width = ''
+    var height = ''
 
     var target = generateTargetAttribute(config.target)
     var linkClass = generateClass(config.linkClass)
@@ -18,9 +20,17 @@ function markdownitLinkifyImages (md, config) {
       title = ' title="' + md.utils.escapeHtml(token.attrs[token.attrIndex('title')][1]) + '"'
     }
 
+    if (token.attrIndex("width") !== -1) {
+      width = ' width="' + token.attrs[token.attrIndex("width")][1] + '"';
+    }
+
+    if (token.attrIndex("height") !== -1) {
+      height = ' height="' + token.attrs[token.attrIndex("height")][1] + '"';
+    }
+
     return '' +
       '<a href="' + url + '"' + linkClass + target + '>' +
-        '<img src="' + url + '" alt="' + caption + '"' + imgClass + title + '>' +
+        '<img src="' + url + '" alt="' + caption + '"' + imgClass + title + width + height + '>' +
       '</a>'
   }
 }

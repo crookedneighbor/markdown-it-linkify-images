@@ -3,6 +3,7 @@
 var chai = require('chai')
 var expect = chai.expect
 var MarkdownIt = require('markdown-it')
+var Imsize = require('@centerforopenscience/markdown-it-imsize')
 var linkifyImages = require('../')
 
 describe('markdown-it-linkify-images', function () {
@@ -24,6 +25,15 @@ describe('markdown-it-linkify-images', function () {
     var result = this.md.render('![caption](https://image.com/image.png "mouseover")')
 
     expect(result).to.eql('<p><a href="https://image.com/image.png" target="_self"><img src="https://image.com/image.png" alt="caption" title="mouseover"></a></p>\n')
+  })
+
+  it('passes through the width and height attributes', function () {
+    this.md.use(Imsize)
+    this.md.use(linkifyImages)
+
+    var result = this.md.render('![caption](https://image.com/image.png "mouseover" =42x42)')
+
+    expect(result).to.eql('<p><a href="https://image.com/image.png" target="_self"><img src="https://image.com/image.png" alt="caption" title="mouseover" width="42" height="42"></a></p>\n')
   })
 
   it('sanitizes src, alt, title attributes', function () {

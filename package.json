@@ -26,14 +26,15 @@
   },
   "homepage": "https://github.com/crookedneighbor/markdown-it-linkify-images#readme",
   "devDependencies": {
-    "browserify": "^16.5.0",
+    "browserify": "^16.5.1",
     "chai": "^4.1.1",
-    "chalk": "^4.0.0",
-    "mocha": "^7.0.1",
-    "rimraf": "^3.0.1",
+    "chalk": "^4.1.0",
+    "markdown-it": "^11.0.0",
+    "mocha": "^8.1.0",
+    "rimraf": "^3.0.2",
     "snazzy": "^8.0.0",
-    "standard": "^14.3.1",
-    "uglify-js": "^3.7.6"
+    "standard": "^14.3.4",
+    "uglify-js": "^3.10.1"
   },
   "standard": {
     "globals": [
@@ -53,8 +54,5 @@
     "ignore": [
       "dist/"
     ]
-  },
-  "dependencies": {
-    "markdown-it": "^10.0.0"
   }
 }

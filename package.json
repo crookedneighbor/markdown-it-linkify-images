@@ -29,7 +29,6 @@
     "browserify": "^16.5.1",
     "chai": "^4.1.1",
     "chalk": "^4.1.0",
-    "markdown-it": "^11.0.0",
     "mocha": "^8.1.0",
     "rimraf": "^3.0.2",
     "snazzy": "^8.0.0",

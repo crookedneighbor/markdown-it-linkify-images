@@ -29,6 +29,7 @@
     "browserify": "^16.5.0",
     "chai": "^4.1.1",
     "chalk": "^4.0.0",
+    "markdown-it": "^11.0.0",
     "mocha": "^7.0.1",
     "rimraf": "^3.0.1",
     "snazzy": "^8.0.0",
@@ -53,8 +54,5 @@
     "ignore": [
       "dist/"
     ]
-  },
-  "dependencies": {
-    "markdown-it": "^10.0.0"
   }
 }

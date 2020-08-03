@@ -26,7 +26,6 @@
   },
   "homepage": "https://github.com/crookedneighbor/markdown-it-linkify-images#readme",
   "devDependencies": {
-    "@centerforopenscience/markdown-it-imsize": "github:harigopal/markdown-it-imsize#preserve-content",
     "browserify": "^16.5.0",
     "chai": "^4.1.1",
     "chalk": "^3.0.0",

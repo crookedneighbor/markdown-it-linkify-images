@@ -3,7 +3,6 @@
 var chai = require('chai')
 var expect = chai.expect
 var MarkdownIt = require('markdown-it')
-var Imsize = require('@centerforopenscience/markdown-it-imsize')
 var linkifyImages = require('../')
 
 describe('markdown-it-linkify-images', function () {
@@ -28,10 +27,22 @@ describe('markdown-it-linkify-images', function () {
   })
 
   it('passes through the width and height attributes', function () {
-    this.md.use(Imsize)
+    this.md.use(function (md, options) {
+      var defaultRender = md.renderer.rules.image || function (tokens, idx, options, env, self) {
+        return self.renderToken(tokens, idx, options)
+      }
+
+      md.renderer.rules.image = function (tokens, idx, options, env, self) {
+        tokens[idx].attrPush(['width', '42'])
+        tokens[idx].attrPush(['height', '42'])
+
+        return defaultRender(tokens, idx, options, env, self)
+      }
+    })
+
     this.md.use(linkifyImages)
 
-    var result = this.md.render('![caption](https://image.com/image.png "mouseover" =42x42)')
+    var result = this.md.render('![caption](https://image.com/image.png "mouseover")')
 
     expect(result).to.eql('<p><a href="https://image.com/image.png" target="_self"><img src="https://image.com/image.png" alt="caption" title="mouseover" width="42" height="42"></a></p>\n')
   })

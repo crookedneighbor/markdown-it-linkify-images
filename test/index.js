@@ -26,33 +26,30 @@ describe('markdown-it-linkify-images', function () {
     expect(result).to.eql('<p><a href="https://image.com/image.png" target="_self"><img src="https://image.com/image.png" alt="caption" title="mouseover"></a></p>\n')
   })
 
-  it('passes through the width and height attributes', function () {
-    this.md.use(function (md, options) {
-      var defaultRender = md.renderer.rules.image || function (tokens, idx, options, env, self) {
-        return self.renderToken(tokens, idx, options)
-      }
-
-      md.renderer.rules.image = function (tokens, idx, options, env, self) {
-        tokens[idx].attrPush(['width', '42'])
-        tokens[idx].attrPush(['height', '42'])
-
-        return defaultRender(tokens, idx, options, env, self)
-      }
-    })
-
-    this.md.use(linkifyImages)
-
-    var result = this.md.render('![caption](https://image.com/image.png "mouseover")')
-
-    expect(result).to.eql('<p><a href="https://image.com/image.png" target="_self"><img src="https://image.com/image.png" alt="caption" title="mouseover" width="42" height="42"></a></p>\n')
-  })
-
   it('sanitizes src, alt, title attributes', function () {
     this.md.use(linkifyImages)
 
     var result = this.md.render('![Dangerous characters: "&<>](https://"&<>/ "\\"&<>")')
 
     expect(result).to.eql('<p><a href="https://%22&%3C%3E/" target="_self"><img src="https://%22&%3C%3E/" alt="Dangerous characters: &quot;&amp;&lt;&gt;" title="&quot;&amp;&lt;&gt;"></a></p>\n')
+  })
+
+  it('passes through all other attributes', function () {
+    this.md.use(function (md, config) {
+      md.inline.ruler.before('image', 'attributes_tester', function replace (state) {
+        var token = state.push('image', 'img', 0)
+        token.content = 'caption'
+        token.attrs = [['src', 'https://image.com/image.png'], ['alt', ''], ['width', '100'], ['height', '50']]
+        state.pos = state.posMax
+        return true
+      })
+    })
+
+    this.md.use(linkifyImages)
+
+    var result = this.md.render('![caption](https://image.com/image.png)')
+
+    expect(result).to.eql('<p><a href="https://image.com/image.png" target="_self"><img src="https://image.com/image.png" alt="caption" width="100" height="50"></a></p>\n')
   })
 
   it('contains the original markdown rendering', function () {

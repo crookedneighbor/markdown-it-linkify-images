@@ -34,6 +34,24 @@ describe('markdown-it-linkify-images', function () {
     expect(result).to.eql('<p><a href="https://%22&%3C%3E/" target="_self"><img src="https://%22&%3C%3E/" alt="Dangerous characters: &quot;&amp;&lt;&gt;" title="&quot;&amp;&lt;&gt;"></a></p>\n')
   })
 
+  it('passes through all other attributes', function () {
+    this.md.use(function (md, config) {
+      md.inline.ruler.before('image', 'attributes_tester', function replace (state) {
+        var token = state.push('image', 'img', 0)
+        token.content = 'caption'
+        token.attrs = [['src', 'https://image.com/image.png'], ['alt', ''], ['width', '100'], ['height', '50']]
+        state.pos = state.posMax
+        return true
+      })
+    })
+
+    this.md.use(linkifyImages)
+
+    var result = this.md.render('![caption](https://image.com/image.png)')
+
+    expect(result).to.eql('<p><a href="https://image.com/image.png" target="_self"><img src="https://image.com/image.png" alt="caption" width="100" height="50"></a></p>\n')
+  })
+
   it('contains the original markdown rendering', function () {
     // Sanity check to make sure the way the image rule works does not change
     // If this fails, you may need to inspect the markup of the rule

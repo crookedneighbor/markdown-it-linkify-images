@@ -4,15 +4,15 @@ function markdownitLinkifyImages (md, config) {
   md.renderer.rules.image = function (tokens, idx, options, env, self) {
     config = config || {}
 
-    var token = tokens[idx]
-    var srcIndex = token.attrIndex('src')
-    var url = token.attrs[srcIndex][1]
-    var caption = md.utils.escapeHtml(token.content)
+    const token = tokens[idx]
+    const srcIndex = token.attrIndex('src')
+    const url = token.attrs[srcIndex][1]
+    const caption = md.utils.escapeHtml(token.content)
 
-    var target = generateTargetAttribute(config.target)
-    var linkClass = generateClass(config.linkClass)
-    var imgClass = generateClass(config.imgClass)
-    var otherAttributes = generateAttributes(md, token)
+    const target = generateTargetAttribute(config.target)
+    const linkClass = generateClass(config.linkClass)
+    const imgClass = generateClass(config.imgClass)
+    const otherAttributes = generateAttributes(md, token)
 
     return '' +
       '<a href="' + url + '"' + linkClass + target + '>' +
@@ -22,16 +22,16 @@ function markdownitLinkifyImages (md, config) {
 }
 
 function generateAttributes (md, token) {
-  var ignore = ['src', 'alt']
-  var escape = ['title']
-  var attributes = ''
+  const ignore = ['src', 'alt']
+  const escape = ['title']
+  let attributes = ''
 
   token.attrs.forEach(function (entry) {
-    var name = entry[0]
+    const name = entry[0]
 
     if (ignore.includes(name)) return
 
-    var value = ''
+    let value = ''
 
     if (escape.includes(name)) {
       value = md.utils.escapeHtml(entry[1])

@@ -1,9 +1,9 @@
 'use strict'
 
-var chai = require('chai')
-var expect = chai.expect
-var MarkdownIt = require('markdown-it')
-var linkifyImages = require('../')
+const chai = require('chai')
+const expect = chai.expect
+const MarkdownIt = require('markdown-it')
+const linkifyImages = require('../')
 
 describe('markdown-it-linkify-images', function () {
   beforeEach(function () {
@@ -13,7 +13,7 @@ describe('markdown-it-linkify-images', function () {
   it('adds a link around the image', function () {
     this.md.use(linkifyImages)
 
-    var result = this.md.render('![caption](https://image.com/image.png)')
+    const result = this.md.render('![caption](https://image.com/image.png)')
 
     expect(result).to.eql('<p><a href="https://image.com/image.png" target="_self"><img src="https://image.com/image.png" alt="caption"></a></p>\n')
   })
@@ -21,7 +21,7 @@ describe('markdown-it-linkify-images', function () {
   it('can add image titles in the linked image', function () {
     this.md.use(linkifyImages)
 
-    var result = this.md.render('![caption](https://image.com/image.png "mouseover")')
+    const result = this.md.render('![caption](https://image.com/image.png "mouseover")')
 
     expect(result).to.eql('<p><a href="https://image.com/image.png" target="_self"><img src="https://image.com/image.png" alt="caption" title="mouseover"></a></p>\n')
   })
@@ -29,7 +29,7 @@ describe('markdown-it-linkify-images', function () {
   it('sanitizes src, alt, title attributes', function () {
     this.md.use(linkifyImages)
 
-    var result = this.md.render('![Dangerous characters: "&<>](https://"&<>/ "\\"&<>")')
+    const result = this.md.render('![Dangerous characters: "&<>](https://"&<>/ "\\"&<>")')
 
     expect(result).to.eql('<p><a href="https://%22&%3C%3E/" target="_self"><img src="https://%22&%3C%3E/" alt="Dangerous characters: &quot;&amp;&lt;&gt;" title="&quot;&amp;&lt;&gt;"></a></p>\n')
   })
@@ -37,7 +37,7 @@ describe('markdown-it-linkify-images', function () {
   it('passes through all other attributes', function () {
     this.md.use(function (md, config) {
       md.inline.ruler.before('image', 'attributes_tester', function replace (state) {
-        var token = state.push('image', 'img', 0)
+        const token = state.push('image', 'img', 0)
         token.content = 'caption'
         token.attrs = [['src', 'https://image.com/image.png'], ['alt', ''], ['width', '100'], ['height', '50']]
         state.pos = state.posMax
@@ -47,7 +47,7 @@ describe('markdown-it-linkify-images', function () {
 
     this.md.use(linkifyImages)
 
-    var result = this.md.render('![caption](https://image.com/image.png)')
+    const result = this.md.render('![caption](https://image.com/image.png)')
 
     expect(result).to.eql('<p><a href="https://image.com/image.png" target="_self"><img src="https://image.com/image.png" alt="caption" width="100" height="50"></a></p>\n')
   })
@@ -55,15 +55,15 @@ describe('markdown-it-linkify-images', function () {
   it('contains the original markdown rendering', function () {
     // Sanity check to make sure the way the image rule works does not change
     // If this fails, you may need to inspect the markup of the rule
-    var imageMd = '![caption](https://image.com/image.png)'
+    const imageMd = '![caption](https://image.com/image.png)'
 
-    var originalResultRaw = this.md.render(imageMd)
+    const originalResultRaw = this.md.render(imageMd)
     // remove surrounding paragraph tag
-    var image = originalResultRaw.substr(3, originalResultRaw.length - 8)
+    const image = originalResultRaw.substr(3, originalResultRaw.length - 8)
 
     this.md.use(linkifyImages)
 
-    var result = this.md.render(imageMd)
+    const result = this.md.render(imageMd)
 
     expect(result).to.contain(image)
   })
@@ -71,15 +71,15 @@ describe('markdown-it-linkify-images', function () {
   it('contains the original markdown rendering with titles', function () {
     // Sanity check to make sure the way the image rule works does not change
     // If this fails, you may need to inspect the markup of the rule
-    var imageMd = '![caption](https://image.com/image.png "mouseover")'
+    const imageMd = '![caption](https://image.com/image.png "mouseover")'
 
-    var originalResultRaw = this.md.render(imageMd)
+    const originalResultRaw = this.md.render(imageMd)
     // remove surrounding paragraph tag
-    var image = originalResultRaw.substr(3, originalResultRaw.length - 8)
+    const image = originalResultRaw.substr(3, originalResultRaw.length - 8)
 
     this.md.use(linkifyImages)
 
-    var result = this.md.render(imageMd)
+    const result = this.md.render(imageMd)
 
     expect(result).to.contain(image)
   })
@@ -89,7 +89,7 @@ describe('markdown-it-linkify-images', function () {
       target: '_blank'
     })
 
-    var result = this.md.render('![caption](https://image.com/image.png)')
+    const result = this.md.render('![caption](https://image.com/image.png)')
 
     expect(result).to.eql('<p><a href="https://image.com/image.png" target="_blank"><img src="https://image.com/image.png" alt="caption"></a></p>\n')
   })
@@ -99,7 +99,7 @@ describe('markdown-it-linkify-images', function () {
       linkClass: 'custom-link-class'
     })
 
-    var result = this.md.render('![caption](https://image.com/image.png)')
+    const result = this.md.render('![caption](https://image.com/image.png)')
 
     expect(result).to.eql('<p><a href="https://image.com/image.png" class="custom-link-class" target="_self"><img src="https://image.com/image.png" alt="caption"></a></p>\n')
   })
@@ -109,7 +109,7 @@ describe('markdown-it-linkify-images', function () {
       linkClass: 'first-class second-class'
     })
 
-    var result = this.md.render('![caption](https://image.com/image.png)')
+    const result = this.md.render('![caption](https://image.com/image.png)')
 
     expect(result).to.eql('<p><a href="https://image.com/image.png" class="first-class second-class" target="_self"><img src="https://image.com/image.png" alt="caption"></a></p>\n')
   })
@@ -119,7 +119,7 @@ describe('markdown-it-linkify-images', function () {
       imgClass: 'custom-image-class'
     })
 
-    var result = this.md.render('![caption](https://image.com/image.png)')
+    const result = this.md.render('![caption](https://image.com/image.png)')
 
     expect(result).to.eql('<p><a href="https://image.com/image.png" target="_self"><img src="https://image.com/image.png" alt="caption" class="custom-image-class"></a></p>\n')
   })
@@ -129,7 +129,7 @@ describe('markdown-it-linkify-images', function () {
       imgClass: 'first-class second-class'
     })
 
-    var result = this.md.render('![caption](https://image.com/image.png)')
+    const result = this.md.render('![caption](https://image.com/image.png)')
 
     expect(result).to.eql('<p><a href="https://image.com/image.png" target="_self"><img src="https://image.com/image.png" alt="caption" class="first-class second-class"></a></p>\n')
   })

@@ -14,18 +14,31 @@ function markdownitLinkifyImages (md, config) {
     const imgClass = generateClass(config.imgClass)
     const otherAttributes = generateAttributes(md, token)
 
-    const imgElement = '<img src="' + url + '" alt="' + caption + '"' + imgClass + otherAttributes + '>'
+    const imgElement =
+      '<img src="' +
+      url +
+      '" alt="' +
+      caption +
+      '"' +
+      imgClass +
+      otherAttributes +
+      '>'
 
-    if (idx > 0 && idx < tokens.length - 1 &&
-      tokens[idx - 1] && tokens[idx - 1].type === 'link_open' &&
-      tokens[idx + 1] && tokens[idx + 1].type === 'link_close') {
+    if (alreadyWrappedInLink(tokens, idx)) {
       return imgElement
     }
 
-    return '' +
-      '<a href="' + url + '"' + linkClass + target + '>' +
+    return (
+      '' +
+      '<a href="' +
+      url +
+      '"' +
+      linkClass +
+      target +
+      '>' +
       imgElement +
       '</a>'
+    )
   }
 }
 
@@ -63,6 +76,18 @@ function generateClass (className) {
   if (!className) return ''
 
   return ' class="' + className + '"'
+}
+
+function alreadyWrappedInLink (tokens, currentTokenIndex) {
+  const previousToken = tokens[currentTokenIndex - 1]
+  const nextToken = tokens[currentTokenIndex + 1]
+
+  return (
+    previousToken &&
+    previousToken.type === 'link_open' &&
+    nextToken &&
+    nextToken.type === 'link_close'
+  )
 }
 
 module.exports = markdownitLinkifyImages

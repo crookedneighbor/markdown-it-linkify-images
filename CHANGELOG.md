@@ -1,4 +1,4 @@
-# unreleased
+# 3.0.0
 
 - Fix bug where an markdown image with link would generate a double link #46 (thanks @tlylt)
 

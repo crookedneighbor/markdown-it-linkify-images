@@ -14,9 +14,17 @@ function markdownitLinkifyImages (md, config) {
     var imgClass = generateClass(config.imgClass)
     var otherAttributes = generateAttributes(md, token)
 
+    var imgElement = '<img src="' + url + '" alt="' + caption + '"' + imgClass + otherAttributes + '>'
+
+    if (idx > 0 && idx < tokens.length - 1 &&
+      tokens[idx - 1] && tokens[idx - 1].type === 'link_open' &&
+      tokens[idx + 1] && tokens[idx + 1].type === 'link_close') {
+      return imgElement
+    }
+
     return '' +
       '<a href="' + url + '"' + linkClass + target + '>' +
-      '<img src="' + url + '" alt="' + caption + '"' + imgClass + otherAttributes + '>' +
+      imgElement +
       '</a>'
   }
 }

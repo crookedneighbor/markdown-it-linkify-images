@@ -21,7 +21,7 @@ describe('markdown-it-linkify-images', function () {
   it('does not add a link if the image is already wrapped by a link', function () {
     this.md.use(linkifyImages)
 
-    var result = this.md.render('[![caption](https://image.com/image.png)](https://google.com)')
+    const result = this.md.render('[![caption](https://image.com/image.png)](https://google.com)')
 
     expect(result).to.eql('<p><a href="https://google.com"><img src="https://image.com/image.png" alt="caption"></a></p>\n')
   })

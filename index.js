@@ -14,7 +14,7 @@ function markdownitLinkifyImages (md, config) {
     const imgClass = generateClass(config.imgClass)
     const otherAttributes = generateAttributes(md, token)
 
-    var imgElement = '<img src="' + url + '" alt="' + caption + '"' + imgClass + otherAttributes + '>'
+    const imgElement = '<img src="' + url + '" alt="' + caption + '"' + imgClass + otherAttributes + '>'
 
     if (idx > 0 && idx < tokens.length - 1 &&
       tokens[idx - 1] && tokens[idx - 1].type === 'link_open' &&

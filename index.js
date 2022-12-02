@@ -13,44 +13,41 @@ function markdownitLinkifyImages (md, config) {
     const linkClass = generateClass(config.linkClass)
     const imgClass = generateClass(config.imgClass)
     const otherAttributes = generateAttributes(md, token)
+    const imgAttributes = concatenateAttributes(
+      `src="${url}"`,
+      `alt="${caption}"`,
+      imgClass,
+      ...otherAttributes
+    )
 
-    const imgElement =
-      '<img src="' +
-      url +
-      '" alt="' +
-      caption +
-      '"' +
-      imgClass +
-      otherAttributes +
-      '>'
+    const imgElement = `<img ${imgAttributes}>`
 
     if (alreadyWrappedInLink(tokens, idx)) {
       return imgElement
     }
 
-    return (
-      '' +
-      '<a href="' +
-      url +
-      '"' +
-      linkClass +
-      target +
-      '>' +
-      imgElement +
-      '</a>'
+    const linkAttributes = concatenateAttributes(
+      `href="${url}"`,
+      linkClass,
+      target
     )
+
+    return `<a ${linkAttributes}>${imgElement}</a>`
   }
+}
+
+function concatenateAttributes (...attributes) {
+  return attributes.filter((val) => val).join(' ')
 }
 
 function generateAttributes (md, token) {
   const ignore = ['src', 'alt']
   const escape = ['title']
-  let attributes = ''
 
-  token.attrs.forEach(function (entry) {
+  return token.attrs.map((entry) => {
     const name = entry[0]
 
-    if (ignore.includes(name)) return
+    if (ignore.includes(name)) return ''
 
     let value = ''
 
@@ -60,22 +57,20 @@ function generateAttributes (md, token) {
       value = entry[1]
     }
 
-    attributes += ' ' + name + '="' + value + '"'
+    return `${name}="${value}"`
   })
-
-  return attributes
 }
 
 function generateTargetAttribute (target) {
   target = target || '_self'
 
-  return ' target="' + target + '"'
+  return `target="${target}"`
 }
 
 function generateClass (className) {
   if (!className) return ''
 
-  return ' class="' + className + '"'
+  return `class="${className}"`
 }
 
 function alreadyWrappedInLink (tokens, currentTokenIndex) {

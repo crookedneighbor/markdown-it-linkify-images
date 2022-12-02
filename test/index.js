@@ -18,6 +18,14 @@ describe('markdown-it-linkify-images', function () {
     expect(result).to.eql('<p><a href="https://image.com/image.png" target="_self"><img src="https://image.com/image.png" alt="caption"></a></p>\n')
   })
 
+  it('does not add a link if the image is already wrapped by a link', function () {
+    this.md.use(linkifyImages)
+
+    var result = this.md.render('[![caption](https://image.com/image.png)](https://google.com)')
+
+    expect(result).to.eql('<p><a href="https://google.com"><img src="https://image.com/image.png" alt="caption"></a></p>\n')
+  })
+
   it('can add image titles in the linked image', function () {
     this.md.use(linkifyImages)
 

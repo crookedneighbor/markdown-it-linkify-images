@@ -1,3 +1,9 @@
+# 4.0.0
+
+_Breaking Changes_
+
+- Drop support for browser build. All integrations must use the npm version.
+
 # 3.0.0
 
 - Fix bug where an markdown image with link would generate a double link #46 (thanks @tlylt)

@@ -7,25 +7,22 @@ A markdown-it plugin to add links to images
 
 ## Install
 
-node.js, browser:
-
 ```bash
 npm install markdown-it-linkify-images --save
-bower install markdown-it-linkify-images --save
 ```
 
 ## Use
 
 ```js
-var md = require('markdown-it')()
-var mili = require('markdown-it-linkify-images')
+const md = require('markdown-it')()
+const mili = require('markdown-it-linkify-images')
 ```
 
 ```js
 // Basic Use
 md.use(mili)
 
-var html = md.render('![the image caption](img/smile.png)')
+const html = md.render('![the image caption](img/smile.png)')
 html // <p><a href="img/smile.png" target="_self"><img src="img/smile.png" alt="the image caption"></a></p>
 ```
 
@@ -37,7 +34,7 @@ md.use(mili, {
   imgClass: 'custom-img-class'
 })
 
-var html = md.render('![the image caption](img/smile.png)')
+const html = md.render('![the image caption](img/smile.png)')
 html // <p><a href="img/smile.png" target="_blank" class="custom-link-class"><img src="img/smile.png" alt="the image caption" class="custom-img-class"></a></p>
 ```
 
